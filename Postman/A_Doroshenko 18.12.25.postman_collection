@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "c8912044-fc42-41c5-bd17-fde095a710b5",
+		"name": "Homework 18.12.25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50878939",
+		"_collection_link": "https://tosa4474-4491894.postman.co/workspace/7a047cd6-d27d-4a9b-8c3d-3efdd2b539eb/collection/50878939-c8912044-fc42-41c5-bd17-fde095a710b5?action=share&source=collection_link&creator=50878939"
+	},
+	"item": [
+		{
+			"name": "Add new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 20000\", function () {\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(20000);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"id_body_string\");\r",
+							"});\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\":\"Petro Pupkin\",\r\n\"age\": 33,\r\n\"gender\":\"male\",\r\n\"city\":\"Kharkiv\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/http/1b3bebb7-e882-4f1e-a74b-ee381bfa69d6/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"http",
+						"1b3bebb7-e882-4f1e-a74b-ee381bfa69d6",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.value).to.eql(100);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"response_body_string\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/{{Path}}/users?id={{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"{{Path}}",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 2500ms\", function () {\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2500);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"age\": 33 ,\r\n    \"city\": \"Kharkiv\",\r\n    \"gender\": \"male\",\r\n    \"name\": \"PETRO Pupkin\",\r\n    \"id\": \"{{id}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/{{Path}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"{{Path}}",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");\r",
+							"});\r",
+							"var schema = {\r",
+							"    \"items\": {\r",
+							"        \"type\": \"boolean\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"var data1 = [true, false];\r",
+							"var data2 = [true, 123];\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test('Schema is valid', function () {\r",
+							"    pm.expect(tv4.validate(data1, schema)).to.be.true;\r",
+							"    pm.expect(tv4.validate(data2, schema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/http/1b3bebb7-e882-4f1e-a74b-ee381bfa69d6/users?id={{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"http",
+						"1b3bebb7-e882-4f1e-a74b-ee381bfa69d6",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": ""
+		},
+		{
+			"key": "path",
+			"value": ""
+		}
+	]
+}
